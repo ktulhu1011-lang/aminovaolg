@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Портфолио фотографа — Имя Фамилия</title>
-  <meta name="description" content="Минималистичный сайт-портфолио фотографа: серии, галерея с лайтбоксом, клавиатурная навигация, быстрые изображения." />
+  <title>Портфолио Аминовой Ольги</title>
+  <meta name="description" content="Портфолио Аминовой Ольги. Авторский фотопроект «Проживаю в Москве» — 11 портретов и истории людей города."/>
   <meta property="og:title" content="Портфолио фотографа — Имя Фамилия" />
   <meta property="og:description" content="Минималистичный сайт-портфолио с фокусом на фото." />
   <meta property="og:type" content="website" />
@@ -214,15 +214,168 @@
     .slide:hover img{ transform: scale(1.02); }
     .reveal{ opacity:0; transform: translateY(10px); }
     .reveal.is-in{ opacity:1; transform: translateY(0); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  
+    /* desktop polish for hero centering */
+    .hero{ display:grid; justify-items:center; padding-left: clamp(16px,4vw,32px); padding-right: clamp(16px,4vw,32px); }
+    .hero .hero-grid{ width:100%; max-width: 980px; margin-inline:auto; text-align:center; }
+    .hero .hero-grid > *{ margin-left:auto; margin-right:auto; }
+    .hero h1{ text-align:center; margin-left:auto; margin-right:auto; line-height:1.12; }
+    .intro{ max-width:72ch; margin-left:auto; margin-right:auto; text-align:center; }
+    @media (min-width: 1100px){
+      .hero .hero-grid{ max-width: 1040px; }
+      .hero h1{ font-size: clamp(52px,6vw,76px); }
+      .intro{ font-size: 18px; }
+    }
+  
+    /* ===== POLISH: smoother reveal + rock‑solid desktop centering ===== */
+    :root{ --ease: cubic-bezier(.22,.7,.2,1); }
+    html{ scroll-behavior:smooth; }
+
+    /* жёсткое центрирование хиро на десктопе */
+    .hero{ display:flex; flex-direction:column; align-items:center; padding-left:clamp(16px,4vw,36px); padding-right:clamp(16px,4vw,36px); }
+    .hero .hero-grid{ width:100%; max-width:1080px; margin:0 auto; text-align:center; display:flex; flex-direction:column; align-items:center; }
+    .hero .hero-grid>*{ margin-left:auto; margin-right:auto; }
+    .hero h1{ text-align:center; margin:10px 0 12px; line-height:1.12; }
+    .intro{ max-width:72ch; margin:0 auto; text-align:center; }
+    .meta-line{ text-align:center; margin:16px auto 0; }
+
+    /* плавное «выезд из кадра» с лёгким блюром */
+    .reveal{ opacity:0; transform: translateY(36px) scale(.985); filter: blur(6px); will-change: transform, opacity, filter; }
+    .reveal.is-in{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); transition: transform .85s var(--ease), opacity .85s var(--ease), filter .85s var(--ease); }
+    .slide img, .spot-img{ transition: transform .6s var(--ease), opacity .4s var(--ease); }
+    .slide:hover img{ transform: scale(1.02); }
+
+    @media (min-width:1200px){
+      .hero .hero-grid{ max-width:1140px; }
+      .hero h1{ font-size: clamp(56px,6.2vw,80px); }
+      .intro{ font-size:18px; }
+    }
+  
+    /* ——— UI polish: project dropdown, contacts, carousel progress, smoother lightbox ——— */
+    .c-head{ display:none; }
+
+    .project-picker{ display:flex; justify-content:center; }
+    .project-select{ appearance:none; -webkit-appearance:none; padding:10px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); color:var(--txt); font-weight:700; font-size:clamp(22px,3.2vw,32px); text-align:center; cursor:pointer; }
+    .project-select:focus{ outline:none; box-shadow:0 0 0 3px rgba(255,255,255,.12) inset; }
+
+    .contacts{ padding:56px 0 72px; text-align:center; }
+    .contacts h2{ font-size: clamp(24px,3.2vw,32px); margin:0 0 12px; }
+    .contact-list{ display:grid; gap:10px; justify-content:center; }
+    .contact-list a{ color:#cfe1ff; text-decoration:none; border:1px solid rgba(207,225,255,.25); padding:8px 12px; border-radius:12px; display:inline-block; }
+    .contact-list a:hover{ transform: translateY(-1px); }
+
+    .c-progress{ height:4px; width:min(560px,70%); background:rgba(255,255,255,.12); border-radius:999px; margin:12px auto 0; overflow:hidden; }
+    .c-progress__fill{ height:100%; width:0%; background:linear-gradient(90deg, rgba(255,255,255,.35), rgba(255,255,255,.85)); border-radius:999px; }
+
+    /* Lightbox overlay fades */
+    .lightbox{ opacity:0; transition: opacity .45s var(--ease); }
+    .lightbox[aria-hidden="false"]{ opacity:1; }
+    .lb-prev,.lb-next{ display:none; }
+
+    /* Reveal both ways (enter/leave) */
+    .reveal{ opacity:0; transform: translateY(36px) scale(.985); filter: blur(6px); transition: transform .85s var(--ease), opacity .85s var(--ease), filter .85s var(--ease); }
+    .reveal.is-in{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
+  
+    /* header dropdown chip */
+    .chip-select{ appearance:none; -webkit-appearance:none; border-radius:999px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:var(--txt); padding:6px 12px; font-size:14px; font-weight:600; cursor:pointer; }
+    .chip-select:focus{ outline:none; box-shadow:0 0 0 2px rgba(255,255,255,.12) inset; }
+  
+    /* header dropdown chip */
+    .chip-select{ appearance:none; -webkit-appearance:none; border-radius:999px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color:var(--txt); padding:6px 12px; font-size:14px; font-weight:600; cursor:pointer; }
+    .chip-select:focus{ outline:none; box-shadow:0 0 0 2px rgba(255,255,255,.12) inset; }
+
+    /* About & Contacts */
+    .about{ padding:64px 0 24px; text-align:center; }
+    .about h2{ font-size: clamp(24px,3vw,32px); margin:0 0 12px; }
+    .about .wrap{ max-width:860px; margin:0 auto; display:grid; gap:16px; justify-items:center; }
+    .about .portrait{ border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.12); }
+    .about .portrait img{ width:min(320px,60vw); height:auto; display:block; }
+    .about p{ max-width:72ch; margin:0; color:var(--muted); }
+
+    .contacts{ padding:40px 0 72px; text-align:center; }
+    .contacts h2{ font-size: clamp(22px,2.6vw,28px); margin:0 0 14px; }
+    .contact-chips{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+    .contact-chip{ display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.05); color:var(--txt); text-decoration:none; }
+    .contact-chip svg{ width:18px; height:18px; stroke:#cfe1ff; stroke-width:1.8; fill:none; }
+  
+    /* ----- Header custom dropdown styled as chip ----- */
+    .dd{ position:relative; }
+    .dd-btn{ -webkit-appearance:none; appearance:none; padding:6px 12px !important; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--txt); font-size:inherit; font-weight:inherit; display:inline-flex; align-items:center; justify-content:center; gap:8px; line-height:1; height:auto; }
+    .dd-label{ text-align:center; display:inline-block; width:100%; }
+    .dd-caret{ width:16px; height:16px; opacity:.7; }
+    .dd-menu{ position:absolute; right:0; top:calc(100% + 8px); min-width: 240px; padding:8px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background: rgba(20,24,30,.98); box-shadow: 0 10px 40px rgba(0,0,0,.45); opacity:0; transform: translateY(-6px) scale(.98); pointer-events:none; transition: opacity .18s var(--ease), transform .18s var(--ease); }
+    .dd[data-open="1"] .dd-menu{ opacity:1; transform: translateY(0) scale(1); pointer-events:auto; }
+    .dd-item{ display:block; padding:10px 12px; border-radius:10px; color:var(--txt); text-decoration:none; }
+    .dd-item:hover{ background: rgba(255,255,255,.06); }
+
+    .contacts{ padding:40px 0 72px; text-align:center; }
+    .contacts h2{ font-size: clamp(22px,2.6vw,28px); margin:0 0 14px; }
+    .contact-chips{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+    .contact-chip{ display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.05); color:var(--txt); text-decoration:none; }
+    .contact-chip svg{ width:18px; height:18px; stroke:#cfe1ff; stroke-width:1.8; fill:none; }
+  
+    /* ----- Header custom dropdown styled as chip (как «Контакты») ----- */
+    .chip{ border:1px solid rgba(255,255,255,.14); background: transparent; color: var(--txt); padding:6px 12px; border-radius:999px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+    .chip:hover{ background: rgba(255,255,255,.05); }
+
+    .dd{ position:relative; }
+    .dd-btn{ background: transparent !important; border:1px solid rgba(255,255,255,.14); }
+    .dd-label{ text-align:center; display:inline-block; width:100%; }
+    .dd-caret{ width:16px; height:16px; opacity:.65; }
+    .dd-menu{ position:absolute; right:0; top:calc(100% + 8px); min-width: 260px; padding:8px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background: rgba(20,24,30,.98); box-shadow: 0 10px 40px rgba(0,0,0,.45); opacity:0; transform: translateY(-6px) scale(.98); pointer-events:none; transition: opacity .18s var(--ease), transform .18s var(--ease); }
+    .dd[data-open="1"] .dd-menu{ opacity:1; transform: translateY(0) scale(1); pointer-events:auto; }
+    .dd-title{ font-size:12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); padding:6px 10px 8px; }
+    .dd-item{ display:block; padding:10px 12px; border-radius:10px; color:var(--txt); text-decoration:none; }
+    .dd-item:hover{ background: rgba(255,255,255,.06); }
+  
+    /* OVERRIDES: dropdown visuals same as chips, caret removed */
+    .dd-btn{ padding:6px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--txt); font-weight:600; font-size:14px; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    .dd-label{ text-align:center; display:inline-block; width:100%; letter-spacing:.01em; }
+  
+    /* dropdown fix: same size as chips + actually opens above header */
+    .filters{ overflow: visible; }
+    .dd{ position:relative; z-index:1000; }
+    .dd-btn{ padding:6px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--txt); font-weight:600; font-size:14px; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    .dd-label{ width:auto; text-align:center; letter-spacing:.01em; }
+    .dd-menu{ position:absolute; right:0; top:calc(100% + 8px); min-width: 220px; padding:8px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background: rgba(20,24,30,.98); box-shadow: 0 10px 40px rgba(0,0,0,.45); opacity:0; transform: translateY(-6px) scale(.98); pointer-events:none; transition: opacity .18s var(--ease), transform .18s var(--ease); z-index:1100; }
+    .dd[data-open="1"] .dd-menu{ opacity:1; transform: translateY(0) scale(1); pointer-events:auto; }
+    .dd-title{ font-size:12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); padding:6px 10px 8px; }
+    .dd-item{ display:block; padding:10px 12px; border-radius:10px; color:var(--txt); text-decoration:none; }
+    .dd-item:hover{ background: rgba(255,255,255,.06); }
+  
+    /* === Final size fix for "Проекты" button to match chips === */
+    .dd{ display:inline-block; }
+    .dd-btn{ flex:0 0 auto; width:auto !important; min-width:auto !important; padding:6px 12px !important; line-height:1; }
+    .dd-label{ width:auto !important; white-space:nowrap; }
+  
+    /* === Chips unified sizing === */
+    :root{ --chip-h: 34px; }
+    .chip{ min-height: var(--chip-h); padding: 0 12px; display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,.14); border-radius:999px; background:transparent; color:var(--txt); font-size:14px; font-weight:600; }
+    .dd{ display:inline-block; }
+    .dd-btn{ appearance:none; -webkit-appearance:none; box-sizing:border-box; min-height: var(--chip-h) !important; height: var(--chip-h) !important; padding: 0 12px !important; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--txt); font-size:14px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; line-height:1; vertical-align:middle; }
+    .dd-label{ white-space:nowrap; }
   </style>
+  <meta property="og:title" content="Портфолио Аминовой Ольги"/>
+  <meta property="og:description" content="Авторский фотопроект «Проживаю в Москве»: 11 портретов и истории жителей города."/>
+  <meta property="og:image" content="/images/photo%204.jpg"/>
+  <meta property="og:type" content="website"/>
 </head>
 <body>
   <header>
     <div class="container nav">
       <div class="brand">Ольга Аминова <small>• Photography</small></div>
       <nav class="filters" aria-label="Навигация">
-        <a class="chip" href="#top">Проживаю в Москве</a>
-        <a class="chip" href="#contacts" style="margin-left:4px">Контакты</a>
+        <div class="dd" id="projectDD">
+          <button class="chip dd-btn" aria-haspopup="listbox" aria-expanded="false">
+            <span class="dd-label">Проекты</span>
+          </button>
+          <ul class="dd-menu" role="listbox" aria-label="Проекты">
+            <li class="dd-title" role="presentation">Проекты</li>
+            <li role="option"><a class="dd-item" href="#top">Проживаю в Москве</a></li>
+          </ul>
+        </div>
+        <a class="chip" href="#about" style="margin-left:8px">Обо мне</a>
+        <a class="chip" href="#contacts" style="margin-left:8px">Контакты</a>
       </nav>
     </div>
   </header>
@@ -278,6 +431,7 @@
           <button class="c-btn c-prev" aria-label="Предыдущий"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
           <button class="c-btn c-next" aria-label="Следующий"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
         </div>
+        <div class="c-progress"><div class="c-progress__fill"></div></div>
       </div>
     </section>
 
@@ -388,18 +542,36 @@
     </section>
 
     <!-- Contacts -->
-    <section id="contacts" class="container" style="padding: 30px 0 0; max-width: 800px;">
-      <h2 style="font-size:clamp(22px,3vw,28px); margin: 10px 0 6px;">Контакты</h2>
-      <p style="color:var(--muted); margin: 0 0 10px;">Для съёмок, коллабораций и публикаций:</p>
-      <div style="display:grid; gap:10px; grid-template-columns: 1fr;">
-        <a class="cta" href="mailto:hello@example.com" aria-label="Написать на email">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
-          hello@example.com
+    
+
+    
+    
+
+    
+  <section id="about" class="about reveal">
+      <h2>Обо мне</h2>
+      <div class="wrap">
+        <a class="portrait" href="/images/Photo_Precious" target="_blank" rel="noopener">
+          <img src="/images/Photo_Precious" alt="Фото Ольги Аминовой"/>
         </a>
-        <a class="cta" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <p>Здесь будет короткий текст о фотографе: подход, темы, города, с кем работаю, публикации. Можешь прислать пару абзацев — аккуратно оформлю.</p>
       </div>
     </section>
-  </main>
+
+    <section id="contacts" class="contacts reveal">
+      <h2>Контакты</h2>
+      <div class="contact-chips">
+        <a class="contact-chip" href="mailto:olga.aminova@yahoo.com" target="_blank" rel="noopener" aria-label="Email">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2 8 5 8-5"/></svg>
+          <span>olga.aminova@yahoo.com</span>
+        </a>
+        <a class="contact-chip" href="https://www.instagram.com/aminovaolg" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2"/></svg>
+          <span>instagram.com/aminovaolg</span>
+        </a>
+      </div>
+    </section>
+</main>
 
   <!-- LIGHTBOX OVERLAY -->
   <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
@@ -412,7 +584,7 @@
   <!-- /LIGHTBOX OVERLAY -->
 
   <footer class="container">
-    <small>© <span id="year"></span> Имя Фамилия. Все права защищены. • Сделано с любовью и лёгким перфекционизмом.</small>
+    <small>© <span id="year"></span> Аминова Ольга</small>
   </footer>
 
   <!-- LIGHTBOX OVERLAY -->
@@ -447,46 +619,97 @@
       els.forEach(el=>{ el.classList.add('reveal'); io.observe(el); });
     })();
 
-    // Fullscreen lightbox for all .open links
-    (function(){
-      const anchors = [...document.querySelectorAll('a.open')];
-      const lb = document.getElementById('lightbox');
-      if(!lb || anchors.length===0) return;
-      const img = lb.querySelector('.lightbox-img');
-      const cap = lb.querySelector('.lb-cap');
-      const btnPrev = lb.querySelector('.lb-prev');
-      const btnNext = lb.querySelector('.lb-next');
-      const btnClose = lb.querySelector('.lb-close');
-      let idx = -1;
-      function show(i){
-        idx = (i + anchors.length) % anchors.length;
-        const a = anchors[idx];
-        const src = a.dataset.full || a.querySelector('img')?.src;
-        img.src = src || '';
-        img.alt = a.dataset.alt || a.querySelector('img')?.alt || '';
-        cap.textContent = a.dataset.cap || a.querySelector('img')?.alt || '';
-        lb.setAttribute('aria-hidden','false');
-        document.body.style.overflow = 'hidden';
-      }
-      function hide(){ lb.setAttribute('aria-hidden','true'); img.src=''; document.body.style.overflow=''; }
+    // Fullscreen lightbox with smooth expand/close
+  (function(){
+    const anchors = [...document.querySelectorAll('a.open')];
+    const lb = document.getElementById('lightbox');
+    const cap = lb?.querySelector('.lb-cap');
+    const btnClose = lb?.querySelector('.lb-close');
+    let clone, originImg, originRect, closing=false;
 
-      anchors.forEach((a,i)=> a.addEventListener('click', (e)=>{ e.preventDefault(); show(i); }));
-      btnPrev.addEventListener('click', ()=> show(idx-1));
-      btnNext.addEventListener('click', ()=> show(idx+1));
-      btnClose.addEventListener('click', hide);
-      lb.addEventListener('click', (e)=>{ if(e.target===lb) hide(); });
-      document.addEventListener('keydown', (e)=>{
-        if(lb.getAttribute('aria-hidden')==='true') return;
-        if(e.key==='Escape') hide();
-        if(e.key==='ArrowLeft') show(idx-1);
-        if(e.key==='ArrowRight') show(idx+1);
-      });
-      // swipe navigation
-      let touchX = null;
-      lb.addEventListener('touchstart', (e)=>{ touchX = e.touches[0].clientX; }, {passive:true});
-      lb.addEventListener('touchend', (e)=>{
-        if(touchX==null) return; const dx = e.changedTouches[0].clientX - touchX; if(Math.abs(dx)>40){ dx>0 ? show(idx-1) : show(idx+1); } touchX=null; }, {passive:true});
-    })();
+    function openFrom(a){
+      originImg = a.querySelector('img');
+      if(!originImg || !lb) return;
+      originRect = originImg.getBoundingClientRect();
+      clone = originImg.cloneNode();
+      Object.assign(clone.style, { position:'fixed', left: originRect.left+'px', top: originRect.top+'px', width: originRect.width+'px', height: originRect.height+'px', margin:0, zIndex:10001, borderRadius: getComputedStyle(originImg).borderRadius, boxShadow:'0 20px 60px rgba(0,0,0,.5)' });
+      document.body.appendChild(clone);
+      lb.setAttribute('aria-hidden','false');
+      cap && (cap.textContent = a.dataset.cap || originImg.alt || '');
+      document.body.style.overflow='hidden';
+
+      const ratio = (originImg.naturalWidth||originRect.width) / (originImg.naturalHeight||originRect.height);
+      const vw = innerWidth * 0.95, vh = innerHeight * 0.95;
+      let tw = vw, th = vw/ratio; if(th>vh){ th = vh; tw = vh*ratio; }
+      const tx = (innerWidth - tw)/2 - originRect.left;
+      const ty = (innerHeight - th)/2 - originRect.top;
+      const sx = tw / originRect.width, sy = th / originRect.height;
+
+      clone.animate([
+        { transform:'translate(0,0) scale(1)', borderRadius: getComputedStyle(originImg).borderRadius },
+        { transform:`translate(${tx}px,${ty}px) scale(${sx},${sy})`, borderRadius:'12px' }
+      ], { duration: 650, easing:'cubic-bezier(.22,.7,.2,1)', fill:'forwards' });
+    }
+
+    function close(){
+      if(!clone || closing) return; closing=true;
+      const cur = clone.getBoundingClientRect();
+      const tx = originRect.left - cur.left; const ty = originRect.top - cur.top;
+      const sx = originRect.width / cur.width; const sy = originRect.height / cur.height;
+      clone.animate([
+        { transform:'translate(0,0) scale(1)', borderRadius:'12px' },
+        { transform:`translate(${tx}px,${ty}px) scale(${sx},${sy})`, borderRadius: getComputedStyle(originImg).borderRadius }
+      ], { duration: 520, easing:'cubic-bezier(.22,.7,.2,1)' }).onfinish = () => {
+        lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; clone.remove(); clone=null; closing=false;
+      };
+    }
+
+    anchors.forEach((a)=> a.addEventListener('click', (e)=>{ e.preventDefault(); openFrom(a); }));
+    btnClose && btnClose.addEventListener('click', close);
+    lb && lb.addEventListener('click', (e)=>{ if(e.target===lb) close(); });
+    document.addEventListener('keydown', (e)=>{ if(lb && lb.getAttribute('aria-hidden')==='false' && e.key==='Escape') close(); });
+  })();
+
+  // Carousel autoplay with 5s progress bar
+  (function(){
+    const root = document.querySelector('.carousel'); if(!root) return;
+    const next = root.querySelector('.c-next'); const prev = root.querySelector('.c-prev');
+    const dotsWrap = root.querySelector('.c-dots'); const bar = root.querySelector('.c-progress__fill');
+    let raf, startT = 0, paused = false;
+
+    const restore = (y)=>{
+      const html = document.documentElement; const prev = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      window.scrollTo(0, y);
+      requestAnimationFrame(()=>{ window.scrollTo(0, y); html.style.scrollBehavior = prev || ''; });
+    };
+
+    function tick(t){
+      if(!startT) startT = t; const elapsed = paused ? 0 : (t - startT);
+      const p = Math.min(elapsed/5000, 1);
+      if(bar) bar.style.width = (p*100)+'%';
+      if(p>=1){
+        const y = window.scrollY;
+        if(next){ next.dispatchEvent(new MouseEvent('click', {bubbles:true, cancelable:true, view:window})); }
+        document.activeElement && document.activeElement.blur();
+        restore(y);
+        start(t);
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    function start(t0){ cancelAnimationFrame(raf); startT = t0 || performance.now(); if(bar) bar.style.width = '0%'; raf = requestAnimationFrame(tick); }
+
+    root.addEventListener('pointerenter', ()=> paused=true);
+    root.addEventListener('pointerleave', ()=> { paused=false; start(); });
+
+    const wrapClick = (el)=> el && el.addEventListener('click', ()=>{ const y=window.scrollY; setTimeout(()=>restore(y),0); start(); });
+    wrapClick(next); wrapClick(prev);
+    dotsWrap && dotsWrap.addEventListener('click', (e)=>{ if(e.target.closest('button')){ const y=window.scrollY; setTimeout(()=>restore(y),0); start(); }});
+
+    start();
+  })();
 
     // ——— КАРУСЕЛЬ: логика
     (function(){
@@ -615,13 +838,58 @@
 
   // ——— Reveal on scroll (hero text, slides, spots)
   (function(){
-    const targets = document.querySelectorAll('.reveal, .spot, .slide, .hero .section-label, .hero h1, .hero .intro p, .hero .meta-line');
+    const targets = document.querySelectorAll('.hero .section-label, .project-picker, .hero .intro p, .hero .meta-line, .spot, .slide');
     targets.forEach(el=> el.classList.add('reveal'));
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target);} });
-    }, { rootMargin:'0px 0px -10% 0px', threshold: .1 });
+      entries.forEach(e=>{ e.target.classList.toggle('is-in', e.isIntersecting); });
+    }, { rootMargin:'0px 0px -5% 0px', threshold: 0.05 });
     targets.forEach(el=> io.observe(el));
+  })();
+  
+  // Custom dropdown (Projects) — header
+  (function(){
+    const dd = document.getElementById('projectDD'); if(!dd) return;
+    const btn = dd.querySelector('.dd-btn'); const menu = dd.querySelector('.dd-menu');
+    const setOpen = v => dd.setAttribute('data-open', v ? '1' : '0');
+    btn.addEventListener('click', (e)=>{ e.preventDefault(); const open = dd.getAttribute('data-open')==='1'; setOpen(!open); btn.setAttribute('aria-expanded', String(!open)); });
+    document.addEventListener('click', (e)=>{ if(!dd.contains(e.target)) { setOpen(false); btn.setAttribute('aria-expanded','false'); }});
+    // клик по пункту — просто закрываем меню, лейбл остаётся «Проекты»
+    menu.querySelectorAll('.dd-item').forEach(a=> a.addEventListener('click', ()=>{ setOpen(false); btn.setAttribute('aria-expanded','false'); }));
+  })();
+
+  // Fix carousel autoplay scroll jump by restoring previous scrollY
+  (function(){
+    const root = document.querySelector('.carousel'); if(!root) return;
+    const next = root.querySelector('.c-next'); const prev = root.querySelector('.c-prev'); const dotsWrap = root.querySelector('.c-dots'); const bar = root.querySelector('.c-progress__fill');
+    let raf, startT = 0, paused = false;
+    function tick(t){ if(!startT) startT = t; const elapsed = paused ? 0 : (t - startT); const p = Math.min(elapsed/5000, 1); if(bar) bar.style.width = (p*100)+'%'; if(p>=1){ const y = window.scrollY; if(next){ next.dispatchEvent(new PointerEvent('click',{bubbles:true})); } document.activeElement && document.activeElement.blur(); window.scrollTo(0,y); start(t); return;} raf = requestAnimationFrame(tick); }
+    function start(t0){ cancelAnimationFrame(raf); startT = t0 || performance.now(); if(bar) bar.style.width = '0%'; raf = requestAnimationFrame(tick); }
+    root.addEventListener('pointerenter', ()=> paused=true);
+    root.addEventListener('pointerleave', ()=> { paused=false; start(); });
+    const wrapClick = (el)=> el && el.addEventListener('click', ()=>{ const y=window.scrollY; setTimeout(()=>{ window.scrollTo(0,y); },0); start(); });
+    wrapClick(next); wrapClick(prev); dotsWrap && dotsWrap.addEventListener('click', (e)=>{ if(e.target.closest('button')){ const y=window.scrollY; setTimeout(()=>window.scrollTo(0,y),0); start(); }});
+    start();
+  })();
+  // Custom dropdown (Projects) — header
+  (function(){
+    const dd = document.getElementById('projectDD'); if(!dd) return;
+    const btn = dd.querySelector('.dd-btn'); const menu = dd.querySelector('.dd-menu'); const label = dd.querySelector('.dd-label');
+    const setOpen = v => dd.setAttribute('data-open', v ? '1' : '0');
+    btn.addEventListener('click', (e)=>{ e.preventDefault(); const open = dd.getAttribute('data-open')==='1'; setOpen(!open); btn.setAttribute('aria-expanded', String(!open)); });
+    document.addEventListener('click', (e)=>{ if(!dd.contains(e.target)) { setOpen(false); btn.setAttribute('aria-expanded','false'); }});
+    menu.querySelectorAll('.dd-item').forEach(a=> a.addEventListener('click', ()=>{ setOpen(false); btn.setAttribute('aria-expanded','false'); label.textContent = a.textContent; }));
+  })();
+  // Custom dropdown (Projects) — header (open/close + ESC)
+  (function(){
+    const dd = document.getElementById('projectDD'); if(!dd) return;
+    const btn = dd.querySelector('.dd-btn'); const menu = dd.querySelector('.dd-menu');
+    const setOpen = v => dd.setAttribute('data-open', v ? '1' : '0');
+    btn.addEventListener('click', (e)=>{ e.preventDefault(); const open = dd.getAttribute('data-open')==='1'; setOpen(!open); btn.setAttribute('aria-expanded', String(!open)); });
+    document.addEventListener('click', (e)=>{ if(!dd.contains(e.target)) { setOpen(false); btn.setAttribute('aria-expanded','false'); }});
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ setOpen(false); btn.setAttribute('aria-expanded','false'); }});
+    menu.querySelectorAll('.dd-item').forEach(a=> a.addEventListener('click', ()=>{ setOpen(false); btn.setAttribute('aria-expanded','false'); }));
   })();
 </script>
 </body>
 </html>
+
