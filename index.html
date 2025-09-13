@@ -442,8 +442,8 @@
         <span class="section-label fade-in delay-1">Проект</span>
         <h1 class="fade-in delay-2">Проживаю в Москве</h1>
         <div class="intro">
-          <p class="fade-in delay-3">Много лет назад, приехав в Москву, я влюбилась в этот город за возможность быть частью его бурного ритма, каждый день открывая для себя что-то новое. Мне нравится, как здесь жизнь не замирает ни на секунду, она кружит, шумит, сталкивает случайных прохожих и навсегда меняет их маршруты.</p>
-          <p class="fade-in delay-4">Особенно я влюблена в людей, которые живут в этом городе. В их сосредоточенные взгляды в метро, в их бесконечную спешку и в умение всё же находить секунду, чтобы улыбнуться незнакомцу. В их упрямую силу и хрупкую мечтательность, в контраст, из которого и рождается энергия этого города.</p>
+          <p class="fade-in delay-3">Много лет назад, приехав в Москву, я влюбилась в этот город за возможность быть частью его бурного ритма, каждый день открывая для себя что-то новое. Мне нравится, как здесь жизнь не замирает ни на секунду, она кружит, шумит, сталкивает случайных прохожих и навсегда меняет их маршруты</p>
+          <p class="fade-in delay-4">Особенно я влюблена в людей, которые живут в этом городе. В их сосредоточенные взгляды в метро, в их бесконечную спешку и в умение всё же находить секунду, чтобы улыбнуться незнакомцу. В их упрямую силу и хрупкую мечтательность, в контраст, из которого и рождается энергия этого города</p>
         </div>
         <div class="meta-line fade-in delay-5">2025 • 11 портретов • авторский фотопроект</div>
       </div>
@@ -551,10 +551,10 @@
   <section id="about" class="about reveal">
       <h2>Обо мне</h2>
       <div class="wrap">
-        <a class="portrait" href="/images/Photo_Precious" target="_blank" rel="noopener">
-          <img src="/images/Photo_Precious" alt="Фото Ольги Аминовой"/>
+        <a class="portrait" href="https://postimg.cc/645XKmcc" target="_blank" rel="noopener">
+          <img src="https://postimg.cc/645XKmcc" alt="Фото Ольги Аминовой" loading="lazy" referrerpolicy="no-referrer"/>
         </a>
-        <p>Здесь будет короткий текст о фотографе: подход, темы, города, с кем работаю, публикации. Можешь прислать пару абзацев — аккуратно оформлю.</p>
+        <p>Здесь будет короткий текст о фотографе: подход, темы, города, с кем работаю, публикации. Можешь прислать пару абзацев — аккуратно оформлю</p>
       </div>
     </section>
 
@@ -889,7 +889,24 @@
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ setOpen(false); btn.setAttribute('aria-expanded','false'); }});
     menu.querySelectorAll('.dd-item').forEach(a=> a.addEventListener('click', ()=>{ setOpen(false); btn.setAttribute('aria-expanded','false'); }));
   })();
+  // Strip trailing dots in photo captions (robust, no regex literals)
+  (function(){
+    const sels = ['.spot-cap','figcaption','.spot .cap','.card .cap','.caption'];
+    const els = document.querySelectorAll(sels.join(','));
+    function stripTrail(el){
+      let t = (el.textContent||'');
+      // trim spaces and NBSP from the end
+      while(t.length && (t[t.length-1] === ' ' || t.charCodeAt(t.length-1) === 160)) t = t.slice(0,-1);
+      if(t.endsWith('.')) t = t.slice(0,-1);
+      el.textContent = t;
+    }
+    els.forEach(el=>{
+      if(el.childNodes && el.childNodes.length){ el.childNodes.forEach(n=>{ if(n.nodeType===3){ let s=n.textContent||''; while(s.length && (s[s.length-1] === ' ' || s.charCodeAt(s.length-1)===160)) s=s.slice(0,-1); if(s.endsWith('.')) s=s.slice(0,-1); n.textContent=s; }}); }
+      stripTrail(el);
+    });
+  })();
 </script>
 </body>
 </html>
+
 
