@@ -551,8 +551,8 @@
   <section id="about" class="about reveal">
       <h2>Обо мне</h2>
       <div class="wrap">
-        <a class="portrait" href="https://postimg.cc/645XKmcc" target="_blank" rel="noopener">
-          <img src="https://postimg.cc/645XKmcc" alt="Фото Ольги Аминовой" loading="lazy" referrerpolicy="no-referrer"/>
+        <a class="portrait" href="https://i.postimg.cc/zvTXCmRs/Photo-Precious.jpg" target="_blank" rel="noopener">
+          <img src="https://i.postimg.cc/zvTXCmRs/Photo-Precious.jpg" alt="Фото Ольги Аминовой" loading="lazy"/>
         </a>
         <p>Здесь будет короткий текст о фотографе: подход, темы, города, с кем работаю, публикации. Можешь прислать пару абзацев — аккуратно оформлю</p>
       </div>
@@ -632,7 +632,7 @@
       if(!originImg || !lb) return;
       originRect = originImg.getBoundingClientRect();
       clone = originImg.cloneNode();
-      Object.assign(clone.style, { position:'fixed', left: originRect.left+'px', top: originRect.top+'px', width: originRect.width+'px', height: originRect.height+'px', margin:0, zIndex:10001, borderRadius: getComputedStyle(originImg).borderRadius, boxShadow:'0 20px 60px rgba(0,0,0,.5)' });
+      Object.assign(clone.style, { position:'fixed', left: originRect.left+'px', top: originRect.top+'px', width: originRect.width+'px', height: originRect.height+'px', margin:0, zIndex:10001, borderRadius: getComputedStyle(originImg).borderRadius, boxShadow:'0 20px 60px rgba(0,0,0,.5)', transformOrigin:'top left' });
       document.body.appendChild(clone);
       lb.setAttribute('aria-hidden','false');
       cap && (cap.textContent = a.dataset.cap || originImg.alt || '');
@@ -908,5 +908,3 @@
 </script>
 </body>
 </html>
-
-
