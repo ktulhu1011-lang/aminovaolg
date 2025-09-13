@@ -1,70 +1,627 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Портфолио фотографа — Имя Фамилия</title>
-<meta name="description" content="Минималистичный сайт-портфолио фотографа: серии, галерея с лайтбоксом, клавиатурная навигация, быстрые изображения." />
-<meta property="og:title" content="Портфолио фотографа — Имя Фамилия" />
-<meta property="og:description" content="Минималистичный сайт-портфолио с фокусом на фото." />
-<meta property="og:type" content="website" />
-<meta property="og:image" content="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" />
-<meta name="theme-color" content="#0f1216" />
-<style>
-:root{
---bg: #0f1216; /* тёмный, но не чёрный */
---elev: #141922; /* карточки/оверлеи */
---txt: #e7eaf0;
---muted: #9aa3b2;
---accent: #7aa2ff;
---grid-gap: clamp(10px, 2vw, 18px);
---maxw: 1200px;
-}
-*, *::before, *::after{ box-sizing: border-box; }
-html, body{ margin:0; padding:0; background: var(--bg); color: var(--txt); font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
-a{ color:inherit; text-decoration: none; }
-.container{ max-width: var(--maxw); margin-inline:auto; padding-inline: clamp(14px, 3vw, 24px); }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Портфолио фотографа — Имя Фамилия</title>
+  <meta name="description" content="Минималистичный сайт-портфолио фотографа: серии, галерея с лайтбоксом, клавиатурная навигация, быстрые изображения." />
+  <meta property="og:title" content="Портфолио фотографа — Имя Фамилия" />
+  <meta property="og:description" content="Минималистичный сайт-портфолио с фокусом на фото." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" />
+  <meta name="theme-color" content="#0f1216" />
+  <style>
+    :root{
+      --bg: #0f1216; /* тёмный, но не чёрный */
+      --elev: #141922; /* карточки/оверлеи */
+      --txt: #e7eaf0;
+      --muted: #9aa3b2;
+      --accent: #7aa2ff;
+      --grid-gap: clamp(10px, 2vw, 18px);
+      --maxw: 1200px;
+    }
+    *, *::before, *::after{ box-sizing: border-box; }
+    html, body{ margin:0; padding:0; background: var(--bg); color: var(--txt); font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    a{ color:inherit; text-decoration: none; }
+    .container{ max-width: var(--maxw); margin-inline:auto; padding-inline: clamp(14px, 3vw, 24px); }
 
+    /* Header */
+    header{ position: sticky; top:0; z-index: 50; background: linear-gradient(180deg, rgba(15,18,22,.95), rgba(15,18,22,.65) 70%, rgba(15,18,22,0)); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap: 16px; padding: 12px 0; }
+    .brand{ font-weight:700; letter-spacing:.2px; }
+    .brand small{ color: var(--muted); font-weight:500; }
+    .filters{ display:flex; gap:10px; flex-wrap: wrap; }
+    .chip{ padding:8px 12px; border:1px solid rgba(255,255,255,.12); border-radius:999px; color: var(--muted); transition:.2s; cursor:pointer; user-select:none; }
+    .chip[aria-pressed="true"], .chip:hover{ color: var(--txt); border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.06); }
 
-/* Header */
-header{ position: sticky; top:0; z-index: 50; background: linear-gradient(180deg, rgba(15,18,22,.95), rgba(15,18,22,.65) 70%, rgba(15,18,22,0)); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,.06); }
-.nav{ display:flex; align-items:center; justify-content:space-between; gap: 16px; padding: 12px 0; }
-.brand{ font-weight:700; letter-spacing:.2px; }
-.brand small{ color: var(--muted); font-weight:500; }
-.filters{ display:flex; gap:10px; flex-wrap: wrap; }
-.chip{ padding:8px 12px; border:1px solid rgba(255,255,255,.12); border-radius:999px; color: var(--muted); transition:.2s; cursor:pointer; user-select:none; }
-.chip[aria-pressed="true"], .chip:hover{ color: var(--txt); border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.06); }
+    /* Hero */
+    .hero{ padding: clamp(22px, 5vw, 54px) 0 6px; }
+    .hero h1{ font-size: clamp(28px, 3.8vw, 44px); margin: 0 0 6px; letter-spacing:.2px; }
+    .hero p{ margin:0; color: var(--muted); max-width: 62ch; }
 
+    /* Grid */
+    .grid{ column-width: 320px; column-gap: var(--grid-gap); }
+    .card{ break-inside: avoid; margin: 0 0 var(--grid-gap); border-radius: 16px; overflow: clip; background: #0c0f14; border:1px solid rgba(255,255,255,.06); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .thumb{ display:block; width:100%; height:auto; aspect-ratio: var(--ratio, auto); background: #0b0e12; }
+    .cap{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding: 10px 12px; color: var(--muted); font-size: 14px; border-top:1px solid rgba(255,255,255,.07); }
+    .cap .tag{ font-size: 12px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.08); }
 
-/* Hero */
-.hero{ padding: clamp(22px, 5vw, 54px) 0 6px; }
-.hero h1{ font-size: clamp(28px, 3.8vw, 44px); margin: 0 0 6px; letter-spacing:.2px; }
-.hero p{ margin:0; color: var(--muted); max-width: 62ch; }
+    /* Lightbox */
+    .lightbox{ position: fixed; inset:0; background: rgba(10,12,16,.86); display:none; align-items:center; justify-content:center; z-index: 100; }
+    .lightbox.open{ display:flex; }
+    .lb-inner{ position:relative; max-width:min(92vw, 1600px); max-height: 86vh; }
+    .lb-img{ display:block; width:auto; max-width:100%; height:auto; max-height:86vh; border-radius: 14px; box-shadow: 0 10px 48px rgba(0,0,0,.6); }
+    .lb-cap{ margin-top:10px; display:flex; justify-content:space-between; align-items:center; gap:12px; color: var(--muted); font-size: 14px; }
+    .lb-actions{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; pointer-events:none; }
+    .btn{ pointer-events:auto; user-select:none; width:44px; height:44px; border-radius:12px; background: rgba(20,25,34,.75); border:1px solid rgba(255,255,255,.1); display:grid; place-items:center; cursor:pointer; transition:.15s; }
+    .btn:hover{ background: rgba(20,25,34,.95); }
+    .btn svg{ width:22px; height:22px; fill:none; stroke:#e7eaf0; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .btn-prev{ position:absolute; left:-60px; top:50%; transform:translateY(-50%); }
+    .btn-next{ position:absolute; right:-60px; top:50%; transform:translateY(-50%); }
+    .btn-close{ position:absolute; right:-60px; top:-60px; }
+    @media (max-width: 900px){ .btn-prev{left:8px} .btn-next{right:8px} .btn-close{right:8px; top:-52px} }
 
+    /* Footer */
+    footer{ padding: 40px 0 60px; color: var(--muted); text-align:center; }
+    .cta{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; background: var(--elev); border:1px solid rgba(255,255,255,.08); color: var(--txt); }
+    .cta:hover{ border-color: rgba(255,255,255,.2); }
 
-/* Grid */
-.grid{ column-width: 320px; column-gap: var(--grid-gap); }
-.card{ break-inside: avoid; margin: 0 0 var(--grid-gap); border-radius: 16px; overflow: clip; background: #0c0f14; border:1px solid rgba(255,255,255,.06); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
-.thumb{ display:block; width:100%; height:auto; aspect-ratio: var(--ratio, auto); background: #0b0e12; }
-.cap{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding: 10px 12px; color: var(--muted); font-size: 14px; border-top:1px solid rgba(255,255,255,.07); }
-.cap .tag{ font-size: 12px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.08); }
+    /* Utils */
+    .hide{ display:none !important; }
+  
+    /* Carousel */
+    .carousel{ padding: clamp(14px,4vw,24px) 0 8px; }
+    .c-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    .c-head h2{ margin:0; font-size: clamp(22px,3vw,28px); letter-spacing:.2px; }
+    .c-track{ display:flex; gap: var(--grid-gap); overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; list-style:none; padding:0; margin:0; }
+    .c-track::-webkit-scrollbar{ display:none; }
+    .slide{ flex: 0 0 100%; scroll-snap-align:center; position:relative; border-radius: 18px; overflow: clip; background:#0c0f14; border:1px solid rgba(255,255,255,.06); box-shadow: 0 12px 36px rgba(0,0,0,.35); list-style:none; display:block; }
+    @media (min-width: 1000px){ .slide{ flex-basis: 92%; } }
+    .slide img{ width:100%; height:auto; display:block; aspect-ratio: 16/9; object-fit: cover; background:#0b0e12; }
+    .c-ovl{ position:absolute; left:14px; bottom:14px; display:inline-flex; flex-direction:column; gap:6px; background: linear-gradient(180deg, rgba(10,12,16,.75), rgba(10,12,16,.35)); backdrop-filter: blur(4px); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.10); color: var(--txt); }
+    .ovl-title{ font-weight:700; font-size:16px; letter-spacing:.2px; }
+    .ovl-meta{ font-size:13px; color: var(--muted); }
+    .ovl-badge{ margin-top:2px; align-self:flex-start; font-size:12px; padding:3px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); color: var(--txt); }
+    .c-nav{ margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .c-dots{ display:flex; gap:8px; list-style:none; }
+    .c-dot{ width:8px; height:8px; border-radius:999px; background: rgba(255,255,255,.25); transition: width .18s ease; }
+    .c-dot[aria-current="true"]{ background: var(--txt); width:20px; }
+    .c-arrows{ display:flex; gap:8px; }
+    .c-btn{ width:36px; height:36px; border-radius:10px; background: rgba(20,25,34,.75); border:1px solid rgba(255,255,255,.1); display:grid; place-items:center; cursor:pointer; transition:.15s; }
+    .c-btn:hover{ background: rgba(20,25,34,.95); }
+    .c-btn svg{ width:18px; height:18px; fill:none; stroke:#e7eaf0; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  
+    /* Spotlight (single image center) */
+    .spotlight{ padding: clamp(22px,5vw,40px) 0 12px; display:grid; place-items:center; }
+    .spot{ max-width: min(1100px, 92vw); margin:0; }
+    .spot-img{ width:100%; height:auto; display:block; border-radius: 18px; background:#0b0e12; box-shadow: 0 12px 36px rgba(0,0,0,.35); }
+    .spot-cap{ text-align:center; color: var(--muted); font-size: 14px; margin-top:10px; }
+  
+    /* Intro & Series */
+    .hero h1{ text-align:left; }
+    .intro{ max-width: 820px; margin: 0 auto; color: var(--txt); }
+    .intro p{ margin: 8px 0 0; color: var(--muted); }
+    .series{ padding: 10px 0 40px; display: grid; gap: 24px; }
+    .spot{ max-width: min(1100px, 92vw); margin: 0 auto; }
+    .spot + .spot{ margin-top: 0; }
+    .spot-img{ width:100%; height:auto; display:block; border-radius: 18px; background:#0b0e12; box-shadow: 0 12px 36px rgba(0,0,0,.35); }
+    .spot-cap{ text-align:center; color: var(--muted); font-size: 14px; margin-top:10px; }
+    .spot-stack{ max-width: min(1100px, 92vw); margin: 0 auto; display: grid; gap: 24px; }
+  
+    /* Refined hero */
+    .hero{ padding: clamp(36px,8vw,72px) 0 12px; text-align:center; }
+    .hero h1{ font-size: clamp(34px,5.5vw,56px); margin: 0 0 8px; letter-spacing:.2px; text-align:center; }
+    .h-sub{ color: var(--muted); margin: 0 0 18px; }
+    .intro{ max-width: 820px; margin: 0 auto; color: var(--txt); font-size: clamp(16px,1.8vw,18px); line-height: 1.75; }
+    .intro p{ margin: 0; }
+    .intro p + p{ margin-top: 10px; }
+  
+    /* ——— Pro typography & layout tweaks ——— */
+    .section-label{ display:inline-block; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); border:1px solid rgba(255,255,255,.12); padding:4px 8px; border-radius:999px; }
+    .hero{ padding: clamp(42px,9vw,84px) 0 6px; }
+    .hero-grid{ max-width: 980px; margin: 0 auto; }
+    .hero h1{ text-wrap: balance; font-size: clamp(36px,5.8vw,60px); margin:10px 0 6px; text-align:left; }
+    .meta-line{ color: var(--muted); font-size: 14px; margin:12px 0 0; }
+    .intro{ max-width: 72ch; margin: 0; color: var(--txt); font-size: clamp(16px,1.6vw,18px); line-height: 1.75; }
+    .intro p{ margin: 0; text-indent: 0; hyphens: auto; }
+    .intro p + p{ margin-top: 12px; }
 
+    /* Carousel polish */
+    .carousel{ position:relative; }
+    .carousel::before, .carousel::after{ content:""; position:absolute; top: 64px; bottom: 44px; width: 40px; pointer-events:none; }
+    .carousel::before{ left:0; background: linear-gradient(90deg, var(--bg), rgba(15,18,22,0)); }
+    .carousel::after{ right:0; background: linear-gradient(-90deg, var(--bg), rgba(15,18,22,0)); }
+    .slide img{ width:100%; height: clamp(240px, 52vh, 520px); object-fit: cover; aspect-ratio: auto; }
+    .c-dots{ gap:10px; }
+    .c-dot{ height:6px; border-radius:6px; }
 
-/* Lightbox */
-.lightbox{ position: fixed; inset:0; background: rgba(10,12,16,.86); display:none; align-items:center; justify-content:center; z-index: 100; }
-.lightbox.open{ display:flex; }
-.lb-inner{ position:relative; max-width:min(92vw, 1600px); max-height: 86vh; }
-.lb-img{ display:block; width:auto; max-width:100%; height:auto; max-height:86vh; border-radius: 14px; box-shadow: 0 10px 48px rgba(0,0,0,.6); }
-.lb-cap{ margin-top:10px; display:flex; justify-content:space-between; align-items:center; gap:12px; color: var(--muted); font-size: 14px; }
-.lb-actions{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; pointer-events:none; }
-.btn{ pointer-events:auto; user-select:none; width:44px; height:44px; border-radius:12px; background: rgba(20,25,34,.75); border:1px solid rgba(255,255,255,.1); display:grid; place-items:center; cursor:pointer; transition:.15s; }
-.btn:hover{ background: rgba(20,25,34,.95); }
-.btn svg{ width:22px; height:22px; fill:none; stroke:#e7eaf0; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-.btn-prev{ position:absolute; left:-60px; top:50%; transform:translateY(-50%); }
-.btn-next{ position:absolute; right:-60px; top:50%; transform:translateY(-50%); }
-.btn-close{ position:absolute; right:-60px; top:-60px; }
-@media (max-width: 900px){ .btn-prev{left:8px} .btn-next{right:8px} .btn-close{right:8px; top:-52px} }
+    /* Figure captions */
+    .spot-cap{ font-size: 15px; }
+  
+    /* Motion: subtle fade-in */
+    @media (prefers-reduced-motion: no-preference){
+      .fade-in{ opacity:0; transform: translateY(10px); animation: fadeUp .7s ease forwards; will-change: transform, opacity; }
+      .delay-1{ animation-delay:.08s }
+      .delay-2{ animation-delay:.16s }
+      .delay-3{ animation-delay:.24s }
+      .delay-4{ animation-delay:.32s }
+      .delay-5{ animation-delay:.40s }
+      @keyframes fadeUp{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform: translateY(0);} }
+    }
+  
+    /* LQIP blur placeholders + hover fades */
+    .card, .spot{ position: relative; }
+    .card::before, .spot::before{ content:""; position:absolute; inset:0; border-radius: inherit; background:
+      linear-gradient(100deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.12) 20%, rgba(255,255,255,.06) 40%) ,
+      rgba(20,25,34,.6);
+      background-size: 200% 100%; animation: shimmer 1.2s linear infinite; opacity:0; transition: opacity .25s ease; }
+    .card:not(.is-loaded)::before, .spot:not(.is-loaded)::before{ opacity:1; }
+    .lqip{ filter: blur(12px); transform: scale(1.02); transition: filter .4s ease, transform .4s ease; }
+    .is-loaded .lqip{ filter: blur(0); transform: scale(1); }
+    @keyframes shimmer{ 0%{ background-position: 200% 0; } 100%{ background-position: -200% 0; } }
 
+    /* Overlay hover animation */
+    .c-ovl{ opacity:.92; transition: opacity .25s ease, transform .25s ease; }
+    .slide:hover .c-ovl{ opacity:1; transform: translateY(-2px); }
+  
+    /* ——— Centering & smoothness ——— */
+    html{ scroll-behavior:smooth; }
+    :root{ --ease: cubic-bezier(.2,.7,.2,1); }
+    .container{ margin-inline:auto; }
+    .hero, .hero .hero-grid, .hero h1, .meta-line{ text-align:center; }
+    .intro{ max-width:72ch; margin-inline:auto; }
 
-/* Footer */
-footer{ padding: 40px 0 60px; color: var(--muted); text-align:center; }
+    /* Images: gentle motion */
+    .slide img, .spot-img{ transition: transform .45s var(--ease), opacity .3s var(--ease); will-change: transform, opacity; }
+    .slide:hover img{ transform: scale(1.02); }
+
+    /* Reveal on scroll */
+    .reveal{ opacity:0; transform: translateY(10px); }
+    .reveal.is-in{ opacity:1; transform: translateY(0); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+
+    /* Fullscreen Lightbox */
+    .lightbox{ position: fixed; inset:0; background: rgba(0,0,0,.92); display:none; align-items:center; justify-content:center; z-index: 9999; }
+    .lightbox[aria-hidden="false"]{ display:flex; }
+    .lightbox-img{ max-width:95vw; max-height:95vh; border-radius:12px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+    .lb-btn{ position:absolute; top:50%; transform: translateY(-50%); width:44px; height:44px; border-radius:10px; background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); display:grid; place-items:center; cursor:pointer; }
+    .lb-prev{ left:18px; } .lb-next{ right:18px; }
+    .lb-close{ top:18px; right:18px; transform:none; }
+    .lb-cap{ position:absolute; left:50%; bottom:16px; transform: translateX(-50%); color:#e7eaf0; background: rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.18); padding:8px 12px; border-radius:10px; font-size:14px; }
+    .lb-btn svg{ width:20px; height:20px; stroke:#fff; stroke-width:2; fill:none; }
+  
+    /* Hero polish & centering */
+    .hero, .hero .hero-grid, .hero h1, .meta-line{ text-align:center; }
+    .section-label{ margin-bottom:6px; }
+    .hero h1{ line-height:1.15; letter-spacing:0; margin: 10px 0 8px; }
+    .meta-line{ margin:4px 0 18px; }
+    .intro{ max-width:72ch; margin-inline:auto; text-align:center; }
+
+    /* Figcaption tidy */
+    .spot-cap{ max-width:68ch; margin:10px auto 2px; background:transparent!important; border:0!important; padding:0; line-height:1.6; color:var(--muted); font-size:15px; }
+  
+    /* ---- hard center for hero block ---- */
+    .hero{ display:grid; justify-items:center; padding-left: clamp(16px,4vw,32px); padding-right: clamp(16px,4vw,32px); }
+    .hero .hero-grid{ width:100%; max-width: 900px; margin-inline:auto; text-align:center; }
+    .hero .hero-grid > *{ margin-left:auto; margin-right:auto; }
+    .hero h1{ text-align:center; margin-left:auto; margin-right:auto; }
+    .intro{ max-width:72ch; margin-left:auto; margin-right:auto; text-align:center; }
+    .meta-line{ text-align:center; }
+  
+    /* Smooth scrolling + reveal on scroll */
+    html{ scroll-behavior:smooth; }
+    :root{ --ease: cubic-bezier(.22,.7,.2,1); }
+    .slide img, .spot-img{ transition: transform .45s var(--ease), opacity .3s var(--ease); will-change: transform, opacity; }
+    .slide:hover img{ transform: scale(1.02); }
+    .reveal{ opacity:0; transform: translateY(10px); }
+    .reveal.is-in{ opacity:1; transform: translateY(0); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Ольга Аминова <small>• Photography</small></div>
+      <nav class="filters" aria-label="Навигация">
+        <a class="chip" href="#top">Проживаю в Москве</a>
+        <a class="chip" href="#contacts" style="margin-left:4px">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- FEATURED CAROUSEL -->
+    <section class="carousel" id="featured" aria-label="Лучшие работы">
+      <div class="c-head">
+        <h2>Лучшие работы</h2>
+        <small style="color:var(--muted)">Листай свайпом или стрелками</small>
+      </div>
+      <div class="c-track">
+        <!-- Фото 4: Людмила -->
+        <article class="slide">
+          <a href="#" class="open" data-full="/images/photo%204.jpg" data-alt="Людмила" data-cap="Людмила, Марий Эл">
+            <img class="thumb" loading="lazy" decoding="async" src="/images/photo%204.jpg" alt="Людмила" />
+            <div class="c-ovl"><span class="ovl-title">Людмила</span><span class="ovl-meta">Марий Эл</span><span class="ovl-badge">Проживаю в Москве</span></div>
+          </a>
+        </article>
+        <!-- Фото 5: Василий Павлович -->
+        <article class="slide">
+          <a href="#" class="open" data-full="/images/photo%205.jpg" data-alt="Василий Павлович" data-cap="Василий Павлович, Магадан">
+            <img class="thumb" loading="lazy" decoding="async" src="/images/photo%205.jpg" alt="Василий Павлович" />
+            <div class="c-ovl"><span class="ovl-title">Василий Павлович</span><span class="ovl-meta">Магадан</span><span class="ovl-badge">Проживаю в Москве</span></div>
+          </a>
+        </article>
+        <!-- Фото 6: Анастасия -->
+        <article class="slide">
+          <a href="#" class="open" data-full="/images/photo%206.jpg" data-alt="Анастасия" data-cap="Анастасия, Московская область">
+            <img class="thumb" loading="lazy" decoding="async" src="/images/photo%206.jpg" alt="Анастасия" />
+            <div class="c-ovl"><span class="ovl-title">Анастасия</span><span class="ovl-meta">Московская область</span><span class="ovl-badge">Проживаю в Москве</span></div>
+          </a>
+        </article>
+        <!-- Фото 7: Фариза -->
+        <article class="slide">
+          <a href="#" class="open" data-full="/images/photo%207.jpg" data-alt="Фариза" data-cap="Фариза, Узбекистан">
+            <img class="thumb" loading="lazy" decoding="async" src="/images/photo%207.jpg" alt="Фариза" />
+            <div class="c-ovl"><span class="ovl-title">Фариза</span><span class="ovl-meta">Узбекистан</span><span class="ovl-badge">Проживаю в Москве</span></div>
+          </a>
+        </article>
+        <!-- Фото 10: Екатерина -->
+        <article class="slide">
+          <a href="#" class="open" data-full="/images/photo%2010.jpg" data-alt="Екатерина" data-cap="Екатерина, Новгородская область">
+            <img class="thumb" loading="lazy" decoding="async" src="/images/photo%2010.jpg" alt="Екатерина" />
+            <div class="c-ovl"><span class="ovl-title">Екатерина</span><span class="ovl-meta">Новгородская область</span><span class="ovl-badge">Проживаю в Москве</span></div>
+          </a>
+        </article>
+      </div>
+      <div class="c-nav">
+        <div class="c-dots" aria-label="Слайды"></div>
+        <div class="c-arrows">
+          <button class="c-btn c-prev" aria-label="Предыдущий"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="c-btn c-next" aria-label="Следующий"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- END FEATURED CAROUSEL -->
+
+    <section class="hero" id="top">
+      <div class="hero-grid">
+        <span class="section-label fade-in delay-1">Проект</span>
+        <h1 class="fade-in delay-2">Проживаю в Москве</h1>
+        <div class="intro">
+          <p class="fade-in delay-3">Много лет назад, приехав в Москву, я влюбилась в этот город за возможность быть частью его бурного ритма, каждый день открывая для себя что-то новое. Мне нравится, как здесь жизнь не замирает ни на секунду, она кружит, шумит, сталкивает случайных прохожих и навсегда меняет их маршруты.</p>
+          <p class="fade-in delay-4">Особенно я влюблена в людей, которые живут в этом городе. В их сосредоточенные взгляды в метро, в их бесконечную спешку и в умение всё же находить секунду, чтобы улыбнуться незнакомцу. В их упрямую силу и хрупкую мечтательность, в контраст, из которого и рождается энергия этого города.</p>
+        </div>
+        <div class="meta-line fade-in delay-5">2025 • 11 портретов • авторский фотопроект</div>
+      </div>
+    </section>
+
+    <!-- GALLERY GRID -->
+    <section class="series" id="gallery" aria-label="Серия портретов">
+      <!-- Фото 1 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%201.jpg" data-alt="Мурад, Кабардино-Балкария" data-cap="Мурад, Кабардино-Балкария.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%201.jpg" alt="Мурад, Кабардино-Балкария" />
+        </a>
+        <figcaption class="spot-cap">Мурад, Кабардино-Балкария. Мурад приехал несколько месяцев назад, работает в доставке, скучает по дому, но рад быть в Москве, потому что копит на свою мечту. Мурад хочет открыть свой бизнес дома, в Кабардино-Балкарии.</figcaption>
+      </figure>
+
+      <!-- Фото 2 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%202.jpg" data-alt="Дима и Сергей, Луганск" data-cap="Дима и Сергей, Луганск.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%202.jpg" alt="Дима и Сергей, Луганск" />
+        </a>
+        <figcaption class="spot-cap">Дима и Сергей, Луганск. Парни говорят, что не привыкли мечтать, ставят себе цели, но о них не стремятся рассказывать, боятся сглазить.</figcaption>
+      </figure>
+
+      <!-- Фото 3 и 4 (стеком) -->
+      <div class="spot-stack">
+        <!-- Фото 3 -->
+        <figure class="spot" style="margin:0;">
+          <a href="#" class="open" data-full="/images/photo%203.jpg" data-alt="Фото 3" data-cap="Фото 3">
+            <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%203.jpg" alt="Фото 3" />
+          </a>
+        </figure>
+        <!-- Фото 4 + подпись -->
+        <figure class="spot" style="margin:0;">
+          <a href="#" class="open" data-full="/images/photo%204.jpg" data-alt="Людмила, Марий Эл" data-cap="Людмила, Марий Эл.">
+            <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%204.jpg" alt="Людмила, Марий Эл" />
+          </a>
+          <figcaption class="spot-cap">Людмила, Марий Эл. Она дорожный рабочий, приезжает работать вахтами. Мечтает достроить дом, где будет тихо и спокойно жить со своей семьей.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Фото 5 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%205.jpg" data-alt="Василий Павлович, Магадан" data-cap="Василий Павлович, Магадан.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%205.jpg" alt="Василий Павлович, Магадан" />
+        </a>
+        <figcaption class="spot-cap">Василий Павлович, Магадан. Он работает в охране ЦУМ, говорит, что ему некогда мечтать, ему нужно досматривать авто.</figcaption>
+      </figure>
+
+      <!-- Фото 6 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%206.jpg" data-alt="Анастасия, Московская область" data-cap="Анастасия, Московская область.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%206.jpg" alt="Анастасия, Московская область" />
+        </a>
+        <figcaption class="spot-cap">Анастасия, Московская область, HR в крупной компании. Мечтает, чтобы все мечты сбывались.</figcaption>
+      </figure>
+
+      <!-- Фото 7 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%207.jpg" data-alt="Фариза, Узбекистан" data-cap="Фариза, Узбекистан.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%207.jpg" alt="Фариза, Узбекистан" />
+        </a>
+        <figcaption class="spot-cap">Фариза, Узбекистан. Она приехала в Москву, мечтая накопить на свою квартиру и стать независимой у себя на родине.</figcaption>
+      </figure>
+
+      <!-- Фото 8 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%208.jpg" data-alt="Валентина, Рязанская область" data-cap="Валентина, Рязанская область.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%208.jpg" alt="Валентина, Рязанская область" />
+        </a>
+        <figcaption class="spot-cap">Валентина, Рязанская область. Приехала в Москву недавно, но пока не решила, хочет она оставаться тут или нет, мечтает поехать на море.</figcaption>
+      </figure>
+
+      <!-- Фото 9 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%209.jpg" data-alt="Басыр, Махачкала" data-cap="Басыр, Махачкала.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%209.jpg" alt="Басыр, Махачкала" />
+        </a>
+        <figcaption class="spot-cap">Басыр, Махачкала. Работает на кухне ресторана на Цветном бульваре. Открытый душой парень говорит, что он не мечтает, а старается кайфовать от жизни, поэтому и приехал в Москву, убегая от мысли, что дома должен заводить семью.</figcaption>
+      </figure>
+
+      <!-- Фото 10 -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%2010.jpg" data-alt="Екатерина, Новгородская область" data-cap="Екатерина, Новгородская область.">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%2010.jpg" alt="Екатерина, Новгородская область" />
+        </a>
+        <figcaption class="spot-cap">Екатерина, Новгородская область. Работает в банке и мечтает встретить свою вторую половину.</figcaption>
+      </figure>
+
+      <!-- Фото 11 + финальное слово -->
+      <figure class="spot">
+        <a href="#" class="open" data-full="/images/photo%2011.jpg" data-alt="Фото 11" data-cap="Фото 11">
+          <img class="spot-img" loading="lazy" decoding="async" src="/images/photo%2011.jpg" alt="Фото 11" />
+        </a>
+        <figcaption class="spot-cap">Пусть наши пути и разные, в каждом взгляде — частичка большого города. Многие думают вернуться домой, многие нашли себя в этом бесконечном потоке жизни. Но одно определенно точно нас всех объединяет — мы все умеем мечтать.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Contacts -->
+    <section id="contacts" class="container" style="padding: 30px 0 0; max-width: 800px;">
+      <h2 style="font-size:clamp(22px,3vw,28px); margin: 10px 0 6px;">Контакты</h2>
+      <p style="color:var(--muted); margin: 0 0 10px;">Для съёмок, коллабораций и публикаций:</p>
+      <div style="display:grid; gap:10px; grid-template-columns: 1fr;">
+        <a class="cta" href="mailto:hello@example.com" aria-label="Написать на email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+          hello@example.com
+        </a>
+        <a class="cta" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- LIGHTBOX OVERLAY -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
+    <img class="lightbox-img" alt="" />
+    <div class="lb-cap"></div>
+    <button class="lb-btn lb-prev" aria-label="Предыдущая"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button class="lb-btn lb-next" aria-label="Следующая"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button class="lb-btn lb-close" aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <!-- /LIGHTBOX OVERLAY -->
+
+  <footer class="container">
+    <small>© <span id="year"></span> Имя Фамилия. Все права защищены. • Сделано с любовью и лёгким перфекционизмом.</small>
+  </footer>
+
+  <!-- LIGHTBOX OVERLAY -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+    <div class="lb-inner">
+      <div class="lb-actions">
+        <button class="btn btn-prev" aria-label="Предыдущее">
+          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="btn btn-next" aria-label="Следующее">
+          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="btn btn-close" aria-label="Закрыть (Esc)">
+          <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <img class="lb-img" id="lbImg" alt="" />
+      <div class="lb-cap"><span id="lbCap"></span><span id="lbDim"></span></div>
+    </div>
+  </div>
+
+  <script>
+    // ——— ГОД В ФУТЕРЕ
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal-on-scroll for slides and spots
+    (function(){
+      const els = document.querySelectorAll('.reveal, .spot, .slide');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target);} });
+      }, {threshold:.12});
+      els.forEach(el=>{ el.classList.add('reveal'); io.observe(el); });
+    })();
+
+    // Fullscreen lightbox for all .open links
+    (function(){
+      const anchors = [...document.querySelectorAll('a.open')];
+      const lb = document.getElementById('lightbox');
+      if(!lb || anchors.length===0) return;
+      const img = lb.querySelector('.lightbox-img');
+      const cap = lb.querySelector('.lb-cap');
+      const btnPrev = lb.querySelector('.lb-prev');
+      const btnNext = lb.querySelector('.lb-next');
+      const btnClose = lb.querySelector('.lb-close');
+      let idx = -1;
+      function show(i){
+        idx = (i + anchors.length) % anchors.length;
+        const a = anchors[idx];
+        const src = a.dataset.full || a.querySelector('img')?.src;
+        img.src = src || '';
+        img.alt = a.dataset.alt || a.querySelector('img')?.alt || '';
+        cap.textContent = a.dataset.cap || a.querySelector('img')?.alt || '';
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+      function hide(){ lb.setAttribute('aria-hidden','true'); img.src=''; document.body.style.overflow=''; }
+
+      anchors.forEach((a,i)=> a.addEventListener('click', (e)=>{ e.preventDefault(); show(i); }));
+      btnPrev.addEventListener('click', ()=> show(idx-1));
+      btnNext.addEventListener('click', ()=> show(idx+1));
+      btnClose.addEventListener('click', hide);
+      lb.addEventListener('click', (e)=>{ if(e.target===lb) hide(); });
+      document.addEventListener('keydown', (e)=>{
+        if(lb.getAttribute('aria-hidden')==='true') return;
+        if(e.key==='Escape') hide();
+        if(e.key==='ArrowLeft') show(idx-1);
+        if(e.key==='ArrowRight') show(idx+1);
+      });
+      // swipe navigation
+      let touchX = null;
+      lb.addEventListener('touchstart', (e)=>{ touchX = e.touches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend', (e)=>{
+        if(touchX==null) return; const dx = e.changedTouches[0].clientX - touchX; if(Math.abs(dx)>40){ dx>0 ? show(idx-1) : show(idx+1); } touchX=null; }, {passive:true});
+    })();
+
+    // ——— КАРУСЕЛЬ: логика
+    (function(){
+      const root = document.getElementById('featured');
+      if(!root) return;
+      const track = root.querySelector('.c-track');
+      const slides = [...root.querySelectorAll('.slide')];
+      const dotsWrap = root.querySelector('.c-dots');
+      const prevBtn = root.querySelector('.c-prev');
+      const nextBtn = root.querySelector('.c-next');
+
+      // создать точки
+      slides.forEach((_,i)=>{
+        const d = document.createElement('button');
+        d.className='c-dot'; d.type='button'; d.setAttribute('aria-label', 'Слайд ' + (i+1));
+        d.addEventListener('click', ()=> slides[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}));
+        dotsWrap.appendChild(d);
+      });
+
+      function current(){
+        let idx = 0, min = Infinity;
+        const sl = track.scrollLeft;
+        slides.forEach((s,i)=>{ const d = Math.abs(s.offsetLeft - sl); if(d < min){ min = d; idx = i; } });
+        return idx;
+      }
+      function setDot(){
+        const i = current();
+        [...dotsWrap.children].forEach((dot, j)=>{ dot.setAttribute('aria-current', j===i ? 'true' : 'false'); });
+      }
+      function go(dir){
+        const i = current();
+        const n = Math.min(slides.length-1, Math.max(0, i + dir));
+        slides[n].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      }
+
+      let ticking = false;
+      track.addEventListener('scroll', ()=>{ if(!ticking){ window.requestAnimationFrame(()=>{ setDot(); ticking = false; }); ticking = true; } });
+      window.addEventListener('resize', setDot);
+      prevBtn.addEventListener('click', ()=> go(-1));
+      nextBtn.addEventListener('click', ()=> go(1));
+      setDot();
+    })();
+
+    // ——— ФИЛЬТР СЕРИЙ
+    const chips = document.querySelectorAll('.chip[data-filter]');
+    const cards = document.querySelectorAll('.card');
+    chips.forEach(ch => ch.addEventListener('click', () => {
+      chips.forEach(x => x.setAttribute('aria-pressed', 'false'));
+      ch.setAttribute('aria-pressed', 'true');
+      const f = ch.dataset.filter;
+      cards.forEach(c => {
+        c.classList.toggle('hide', f !== 'all' && c.dataset.cat !== f);
+      });
+    }));
+
+    // ——— ЛАЙТБОКС (клавиши, свайпы, предзагрузка)
+    const links = [...document.querySelectorAll('.open')];
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lbImg');
+    const cap = document.getElementById('lbCap');
+    const dim = document.getElementById('lbDim');
+    const btnPrev = document.querySelector('.btn-prev');
+    const btnNext = document.querySelector('.btn-next');
+    const btnClose = document.querySelector('.btn-close');
+    let idx = -1;
+
+    function openAt(i){
+      idx = i;
+      const a = links[idx];
+      const full = a.dataset.full; const w = +a.dataset.w; const h = +a.dataset.h;
+      img.src = full; img.alt = a.dataset.alt || '';
+      cap.textContent = a.dataset.cap || '';
+      dim.textContent = w && h ? `${w}×${h}` : '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // предзагрузка соседей
+      [idx-1, idx+1].forEach(j => { if(links[j]){ const t = new Image(); t.src = links[j].dataset.full; } });
+    }
+    function close(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+    function next(){ if(idx < links.length-1) openAt(idx+1); }
+    function prev(){ if(idx > 0) openAt(idx-1); }
+
+    links.forEach((a,i)=>{
+      a.addEventListener('click', e=>{ e.preventDefault(); openAt(i); });
+    });
+    btnClose.addEventListener('click', close);
+    btnNext.addEventListener('click', next);
+    btnPrev.addEventListener('click', prev);
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) close(); });
+    window.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') close();
+      if(e.key === 'ArrowRight') next();
+      if(e.key === 'ArrowLeft') prev();
+    });
+
+    // свайпы
+    let sx=0, sy=0;
+    lb.addEventListener('touchstart', e=>{ const t = e.touches[0]; sx=t.clientX; sy=t.clientY; }, {passive:true});
+    lb.addEventListener('touchend', e=>{
+      const t = e.changedTouches[0]; const dx = t.clientX - sx; const dy = t.clientY - sy;
+      if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40){ dx < 0 ? next() : prev(); }
+    });
+
+    // ——— ПОДСКАЗКИ ДЛЯ ЗАМЕНЫ ФОТО (комментарии в коде):
+    // 1) Скачайте свои фото в sRGB. Сделайте два размера: превью (примерно 1280 по длинной стороне) и полноразмер для лайтбокса (до ~3000).
+    // 2) Положите их в /images. В атрибуты data-w и data-h впишите реальную ширину/высоту полноразмера — это ускорит отрисовку.
+    // 3) Обновите src/srcset и alt/caption у каждой карточки. Категории: portrait | street | reportage.
+  
+  // ——— LQIP: blur-up + skeleton placeholder for local images
+  (function(){
+    const imgs = document.querySelectorAll('img.thumb, img.spot-img');
+    imgs.forEach(img => {
+      const holder = img.closest('.card, .spot, .slide') || img.parentElement;
+      if(!holder) return;
+      img.classList.add('lqip');
+      holder.classList.remove('is-loaded');
+      const done = () => { holder.classList.add('is-loaded'); img.classList.remove('lqip'); };
+      if(img.complete && img.naturalWidth) { done(); }
+      else {
+        img.addEventListener('load', done, { once:true });
+        img.addEventListener('error', () => holder.classList.add('is-loaded'), { once:true });
+      }
+    });
+  })();
+
+  // ——— Reveal on scroll (hero text, slides, spots)
+  (function(){
+    const targets = document.querySelectorAll('.reveal, .spot, .slide, .hero .section-label, .hero h1, .hero .intro p, .hero .meta-line');
+    targets.forEach(el=> el.classList.add('reveal'));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target);} });
+    }, { rootMargin:'0px 0px -10% 0px', threshold: .1 });
+    targets.forEach(el=> io.observe(el));
+  })();
+</script>
+</body>
+</html>
